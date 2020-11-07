@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare Folder Application</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+<link
+	href="https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@700&display=swap"
+	rel="stylesheet">
+
+<style>
+* {
+	box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
+}
+
+/* Header/logo Title */
+.header {
+	padding: 30px;
+	text-align: center;
+	background: #777;
+	color: white;
+}
+
+/* Increase the font size of the heading */
+.header h1 {
+	font-size: 50px;
+	font-family: 'Stardos Stencil', cursive;
+}
+
+.row {
+	height: 100%;
+}
+
+/* Style the top navigation bar */
+.navbar {
+	overflow: hidden;
+	background-color: #333;
+	text-align: right;
+}
+
+.navbar p {
+	float: right;
+	text-align: right;
+	display: block;
+	color: white;
+	padding: 10px 10px;
+	text-decoration: none;
+}
+
+.sidebar {
+	margin: 0;
+	padding: 0;
+	width: 200px;
+	background-color: #f1f1f1;
+	position: absolute;
+	height: 100%;
+	overflow: auto;
+}
+
+.sidebar a {
+	display: block;
+	color: black;
+	padding: 20px;
+	text-decoration: none;
+}
+
+.sidebar a:hover:not(.active) {
+	background-color: #555;
+	color: white;
+}
+
+div.content {
+	margin-left: 200px;
+	padding: 1px 16px;
+	height: 1000px;
+}
+
+@media screen and (max-width: 700px) {
+	.sidebar {
+		width: 100%;
+		height: auto;
+		position: relative;
+	}
+	.sidebar a {
+		float: left;
+	}
+	div.content {
+		margin-left: 0;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.sidebar a {
+		text-align: center;
+		float: none;
+	}
+}
+
+/* Footer */
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 2px;
+	width: 100%;
+	background-color: #777;
+	color: white;
+	text-align: center;
+	font-family: 'Stardos Stencil', cursive;
+}
+</style>
+
+</head>
+<body>
+
+	<div class="header">
+		<h1>Folder Comparer</h1>
+	</div>
+
+	<div class="navbar">
+		<p th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}">13
+			February 2011</p>
+	</div>
+
+	<div class="sidebar">
+		<a href="/home"> Home </a>
+		<a href="/sourcelist" th:href="@{/sourcelist}"> Source Folder Details</a>
+		<a href="/targetlist" th:href="@{/targetlist}"> Target Folder Details</a>
+		<a href="/matchlist" th:href="@{/matchlist}"> Matched Files</a>
+		<a href="/difflist" th:href="@{/difflist}"> Difference Files</a>
+		<a href="/comparereport" th:href="@{/comparereport}">Reports</a>
+	</div>
+
+	<div class="content">
+		<div class="card-body">
+			<div th:switch="${listTargetFiles}" class="container my-5">
+				<p class="my-5">
+				<h3>
+					Number of files in Target Folder:
+					<th:block th:text="${#lists.size(listTargetFiles)}">100</th:block>
+				</h3>
+				</p>
+				<div class="col-md-10">
+					<h2 th:case="null">List of files is empty !</h2>
+					<div th:case="*">
+						<table class="table table-striped table-responsive-md">
+							<thead>
+								<tr>
+									<th>No</th>
+									<th>File Name</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="filelist, stat : ${listTargetFiles}">
+									<td th:text="${stat.index + 1}">1</td>
+									<td th:text="${filelist}">FileName</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer">
+		<h2>Developed By : Sabia</h2>
+	</div>
+
+</body>
+</html>
