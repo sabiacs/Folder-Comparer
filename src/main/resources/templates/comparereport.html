@@ -203,9 +203,11 @@ div.content {
 									<tr th:each="filelist, stat : ${listCompareRport}">
 										<td th:text="${stat.index + 1}">1</td>
 										<td th:text="${filelist.fileName}">FileName</td>
-										<td><a href="#"
-											th:onclick="downloadasfile(this,[[${filelist.fileBytes}]],[[${filelist.fileName}]])">Link</a></td>
+										<td><a href="#" th:onclick="downloadasfile(this,[[${filelist.fileBytes}]],[[${filelist.fileName}]])"> <img src="../static/img/download.png" width="30" th:src="@{img/download.png}"/>
+											</a></td>
+									
 									</tr>
+	
 								</tbody>
 						</table>
 					</div>
